@@ -7,3 +7,13 @@
   <p>installed.</p>
   <h3>Enjoy coding! - Yeoman</h3>
 </div>
+
+<google-map center="center"
+            zoom="zoom"
+            style="height: 400px; width: 100%; display: block;">
+
+    <markers>
+        <marker ng-repeat="marker in markers" coords="marker"></marker>
+    </markers>
+
+</google-map>
