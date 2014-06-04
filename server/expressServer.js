@@ -548,7 +548,7 @@ app.get('/getNearbyRefuges/:lat/:lon', function (req, response) {
 
     var qry = 'SELECT *, SQRT(POW(69.1 * (latitude - ' + lat + '), 2) + POW(69.1 * (' + lon + ' - longitude) * COS(latitude / 57.3), 2)) AS distance ' +
         'FROM REGUFEE ' +
-        // 'HAVING distance < 3 ' +
+        'HAVING distance < 3 ' +
         'ORDER BY distance ';
     var box = new DB(dbConfig);
     box.connect(function (conn, cb) {
