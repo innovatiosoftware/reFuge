@@ -104,7 +104,8 @@
                                     </label>
 
                                     <div style="margin-left: 10px">
-                                        <label><i class="fa fa-users"></i>&nbsp;Capacidad: {{current.CAPACIDAD}}</label>
+                                        <label style="color: #fff;font-size: 20px">&nbsp;Condicion: {{current.CONDICION}}&nbsp;
+                                            <i  style="font-size: 24px" ng-class="{'fa  fa-thumbs-o-up':current.CONDITION_CATEGORY=='Funcional','fa  fa-thumbs-o-down':current.CONDITION_CATEGORY=='No Funcional' }"></i></label>
                                     </div>
                                 </div>
                                 <div class="col-md-3">
