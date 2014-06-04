@@ -99,6 +99,13 @@ var onMarkerClicked = function (marker, $scope, Logger) {
     if (!$scope.show)
     $scope.show = true;
     $scope.current = marker.data;
+    var iNum = Math.floor((Math.random()*3)+1);
+    var ext = ".jpg";
+    if(iNum == 1){
+        ext = ".png";
+    }
+    $scope.image = "r"+iNum+ext;
+    Logger.info($scope.image);
     $scope.$apply();
 
 };
