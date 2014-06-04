@@ -1,18 +1,43 @@
 <div class="row">
     <div class="col-md-12">
         <!--{{map.center}}-->
-        <div style="background-color: #fff;padding: 5px">
+        <div style="background-color: #fff;padding: 5px" class="map-box">
 
-            <google-map  center="map.center" zoom="map.zoom" draggable="true">
+            <google-map center="map.center" zoom="map.zoom" draggable="true">
                 <!--<markers model="markers" doCluster="true" coords="'self'" icon='"images/target.png"' options="marker.options" click="'onClicked'">
 
                 </markers>-->
-                <marker ng-repeat="m in markers" coords="m" icon='"images/sofa.png"' options="marker.options" click="'onClicked'">
+                <marker ng-repeat="m in markers" coords="m" icon='"images/sofa.png"' options="marker.options"
+                        click="'onClicked'">
 
                 </marker>
             </google-map>
-            <div style=" background: rgba(51, 51, 51, .5);;height: 200px;position: absolute;bottom: 5px;width: 96%">
-                test
+            <div class="map-quick-info">
+                <div class="row">
+                    <div class="col-md-3">
+                        <h2><i class="fa fa-building-o" style="font-size: 22px;position: relative;bottom: 3px"></i>
+                            Nombre lugar</h2>
+
+                        <div style="margin-left: 10px">
+                            <i class="fa fa-location-arrow pull-left" style="margin-top: 3px" ></i>
+                            <address class="pull-left">
+                                    Address Line 1<br/>
+                                    Address Line 2<br/>
+                                    Municipio,PR.
+                            </address>
+                        </div>
+                    </div>
+                    <div class="col-md-6">
+                        <label class="vertical-text">
+                                        CONDICIONES <br/>DEL<br/> REFUGIO
+                        </label>
+                    </div>
+                    <div class="col-md-3">
+                        <a href="#" class="thumbnail">
+                            <img src="http://placehold.it/350x250" alt="...">
+                        </a>
+                    </div>
+                </div>
             </div>
         </div>
 
@@ -20,7 +45,7 @@
                     zoom="zoom"
                     style="height: 400px; width: 100%; display: block;">
 
-        &lt;!&ndash;    <markers>
+        &lt;!&ndash;    <markers>                                           A
                 <marker ng-repeat="marker in markers" coords="marker"></marker>
             </markers>&ndash;&gt;
 
