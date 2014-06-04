@@ -5,7 +5,7 @@ var events = require('events'),
     cps = require('cps');
 db = require('node-mysql');
 
-var rootLib = '/usr/local/lib/node_modules/npm/node_modules/';
+var rootLib = '/usr/local/lib/node_modules/';
 var express = require(rootLib + 'express')
     , http = require('http')
     , path = require('path')

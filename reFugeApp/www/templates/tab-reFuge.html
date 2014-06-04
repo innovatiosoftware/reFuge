@@ -5,10 +5,10 @@
                 Alert
             </div>
             <div class="item item-text-wrap">
-                Mensanje de Alerta
+                Alerta posible inmudacion areas cercanas
             </div>
-            <div class="item tabs tabs-secondary tabs-icon-left">
-                <a class="tab-item" href="#" style="text-align: left">
+            <div class="item tabs tabs-secondary tabs-icon-left" >
+                <a class="tab-item" href="#">
                     <i class="icon ion-social-rss"></i>
                     Feed
                 </a>
@@ -20,9 +20,9 @@
             </div>
 
             <ion-list>
-                <ion-item ng-repeat="refuge in refuges" href="#/tab/refuge/{{refuge.id}}">
+                <ion-item ng-repeat="refuge in refuges" href="#/tab/reFuge/{{refuge.ID}}">
                     <i class="icon ion-ios7-location">
-                        {{refuge.name}}<br/>({{refuge.capacity}}){{refuge.municipio}}&nbsp;{{refuge.telephone}}
+                        {{refuge.NAME}}<br/>({{refuge.CAPACIDAD}}){{refuge.MUNICIPIO}}&nbsp;{{refuge.TELEFONO}}
                     </i>
                 </ion-item>
             </ion-list>

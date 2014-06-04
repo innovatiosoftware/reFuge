@@ -47,6 +47,15 @@ angular.module('starter', ['ionic', 'starter.controllers', 'starter.services'])
                     }
                 }
             })
+            .state('tab.reFuge-detail', {
+                url: '/reFuge/:refugeId',
+                views: {
+                    'tab-reFuge': {
+                        templateUrl: 'templates/reFuge-detail.html',
+                        controller: 'reFugeDetailCtrl'
+                    }
+                }
+            })
 
             .state('tab.friends', {
                 url: '/friends',
