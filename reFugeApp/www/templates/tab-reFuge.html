@@ -1,0 +1,31 @@
+<ion-view title="Refuge">
+    <ion-content class="has-header padding">
+        <div class="card">
+            <div class="item item-divider">
+                Alert
+            </div>
+            <div class="item item-text-wrap">
+                Mensanje de Alerta
+            </div>
+            <div class="item tabs tabs-secondary tabs-icon-left">
+                <a class="tab-item" href="#" style="text-align: left">
+                    <i class="icon ion-social-rss"></i>
+                    Feed
+                </a>
+            </div>
+        </div>
+        <div class="card">
+            <div class="item item-divider">
+                reFuge
+            </div>
+
+            <ion-list>
+                <ion-item ng-repeat="refuge in refuges" href="#/tab/refuge/{{refuge.id}}">
+                    <i class="icon ion-ios7-location">
+                        {{refuge.name}}<br/>({{refuge.capacity}}){{refuge.municipio}}&nbsp;{{refuge.telephone}}
+                    </i>
+                </ion-item>
+            </ion-list>
+        </div>
+    </ion-content>
+</ion-view>
