@@ -2,7 +2,18 @@
     <div class="col-md-12">
         <!--{{map.center}}-->
         <div style="background-color: #fff;padding: 5px">
-            <google-map center="map.center" zoom="map.zoom"></google-map>
+
+            <google-map  center="map.center" zoom="map.zoom" draggable="true">
+                <!--<markers model="markers" doCluster="true" coords="'self'" icon='"images/target.png"' options="marker.options" click="'onClicked'">
+
+                </markers>-->
+                <marker ng-repeat="m in markers" coords="m" icon='"images/sofa.png"' options="marker.options" click="'onClicked'">
+
+                </marker>
+            </google-map>
+            <div style=" background: rgba(51, 51, 51, .5);;height: 200px;position: absolute;bottom: 5px;width: 96%">
+                test
+            </div>
         </div>
 
         <!--<google-map center="center"
@@ -14,9 +25,7 @@
             </markers>&ndash;&gt;
 
         </google-map>-->
-        <!--<div style=" background: rgba(51, 51, 51, .5);;height: 200px">
-                  test
-        </div>-->
+
 
         <!--<google-map
                 center="centerProperty"
