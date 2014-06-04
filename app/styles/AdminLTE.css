@@ -395,11 +395,12 @@ body > .header .navbar .nav > li > a:hover > .label {
   top: 3px;
 }
 body > .header .logo {
+
   float: left;
   font-size: 20px;
-  line-height: 50px;
-  text-align: center;
-  padding: 0 10px;
+  line-height: 10px;
+  text-align: left;
+  padding: 5px 10px;
   width: 220px;
   /*font-family: 'Kaushan Script', cursive;*/
   font-weight: 500;
