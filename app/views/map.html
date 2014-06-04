@@ -1,89 +1,132 @@
-<div class="row">
-    <div class="col-md-12">
-        <!--{{map.center}}-->
-        <div style="background-color: #fff;padding: 5px" class="map-box">
+<div class="wrapper row-offcanvas row-offcanvas-left">
+    <!-- Left side column. contains the logo and sidebar -->
+    <aside class="left-side sidebar-offcanvas">
+        <!-- sidebar: style can be found in sidebar.less -->
+        <section class="sidebar">
+            <!-- search form -->
+            <form action="#" method="get" class="sidebar-form">
+                <div class="input-group">
+                    <input type="text" name="q" class="form-control" placeholder="Search..."/>
+                            <span class="input-group-btn">
+                                <button type='submit' name='seach' id='search-btn' class="btn btn-flat"><i
+                                        class="fa fa-search"></i></button>
+                            </span>
+                </div>
+            </form>
+            <!-- /.search form -->
+            <!-- sidebar menu: : style can be found in sidebar.less -->
+            <ul class="sidebar-menu" >
+                <li class="treeview active">
+                    <a href="#">
+                        <i class="fa fa-warning "></i>
+                        <span>Refugios</span>
+                        <i class="fa fa-angle-left pull-right"></i>
+                    </a>
+                    <ul class="treeview-menu" >
+                        <li><a href ng-click='geocodeF("Cayey")'><i class="fa fa-dot-circle-o"></i>Cayey <small class="badge pull-right bg-green">50</small></a></li>
+                        <li><a href ng-click='geocodeF("San Juan")'><i class="fa fa-dot-circle-o"></i>San Juan <small class="badge pull-right bg-green">50</small></a></li>
+                        <li><a href ng-click='geocodeF("Vega Alta")'><i class="fa fa-dot-circle-o"></i> Vega Alta</a></li>
 
-            <google-map center="map.center" zoom="map.zoom" draggable="true">
-                <markers model="markers" doCluster="true" coords="'self'" icon='"images/target.png"'
-                         options="marker.options" click="onClicked">
+                    </ul>
+                </li>
+            </ul>
+        </section>
+        <!-- /.sidebar -->
+    </aside>
 
-                </markers>
-                <markers models="markers" coords="'self'" icon="'icon'" click="'onClicked'"
-                         doCluster="true">
-                </markers>
-            </google-map>
-            <div class="map-quick-info" >
-                <div class="row">
-                    <div class="col-md-3">
-                        <div style="margin-left: 10px">
-                            <!--    <label class=" text-shadow" style="">
-                                <i class="fa fa-info-circle" style="margin-top: 3px"></i>  INFOMACION GENERAL
-                            </label>-->
-                            <h2 class="" style="margin-left: 15px;margin: 0;padding: 0"><i
-                                    class="fa fa-building-o "
-                                    style="font-size: 22px;position: relative;bottom: 3px"></i>
-                                Nombre lugar
-                            </h2>
-                            <small style="color: #fff;font-size: 11px;margin-left: 25px;position: relative;top:-5px ">
-                                Zona AEMEA: 1
-                            </small>
-                            <div style="margin-left: 20px">
+    <!-- Right side column. Contains the navbar and content of the page -->
+    <aside class="right-side">
+        <!-- Content Header (Page header) -->
+        <section class="content-header">
+            <h1>
+                <i class="fa fa-compass"></i> <small>re</small><b>F</b><span style="color: #454545">ugios</span>
 
-                                <address class="pull-left">
-                                    <i class="fa fa-location-arrow pull-left" style="margin-top: 3px;color: #000"></i>
-                                    <b style="color: #000">Dirección</b><br/>
-                                    Address Line 1<br/>
-                                    Address Line 2<br/>
-                                    Municipio,PR.<br/>
+                <small>Dashboard</small>
+            </h1>
+            <ol class="breadcrumb">
+                <li><a href="#/map"><i class="fa fa-dashboard"></i> Home</a></li>
+                <li class="active">Mapa de Refugios</li>
+            </ol>
+        </section>
 
-                                    <p><i class="fa fa-phone pull-left" style="margin-top: 3px;color: #000"></i><b
-                                            style="color: #000">Teléfono</b><br/>
-                                        787.640.9517</p>
-                                </address>
+        <!-- Main content -->
+        <section class="content">
+            <!-- Add your site or application content here -->
+            <div class="row">
+                <div class="col-md-12">
+                    <!--{{map.center}}-->
+                    <div style="background-color: #fff;padding: 5px" class="map-box">
 
+                        <google-map center="map.center" zoom="map.zoom" draggable="true">
+                            <markers model="markers" doCluster="true" coords="'self'" icon='"images/target.png"'
+                                     options="marker.options" click="onClicked">
+
+                            </markers>
+                            <markers models="markers" coords="'self'" icon="'icon'" click="'onClicked'"
+                                     doCluster="true">
+                            </markers>
+                        </google-map>
+                        <div class="map-quick-info"  ng-show="show">
+                            <div class="row">
+                                <div class="col-md-3">
+                                    <div style="margin-left: 10px">
+                                        <!--    <label class=" text-shadow" style="">
+                                            <i class="fa fa-info-circle" style="margin-top: 3px"></i>  INFOMACION GENERAL
+                                        </label>-->
+                                        <h2 class="" style="margin-left: 15px;margin: 0;padding: 0"><i
+                                                class="fa fa-building-o "
+                                                style="font-size: 22px;position: relative;bottom: 3px"></i>
+                                            Nombre lugar
+                                        </h2>
+                                        <small style="color: #fff;font-size: 11px;margin-left: 25px;position: relative;top:-5px ">
+                                            Zona AEMEA: 1
+                                        </small>
+                                        <div style="margin-left: 20px">
+
+                                            <address class="pull-left">
+                                                <i class="fa fa-location-arrow pull-left" style="margin-top: 3px;color: #000"></i>
+                                                <b style="color: #000">Dirección</b><br/>
+                                                Address Line 1<br/>
+                                                Address Line 2<br/>
+                                                Municipio,PR.<br/>
+
+                                                <p><i class="fa fa-phone pull-left" style="margin-top: 3px;color: #000"></i><b
+                                                        style="color: #000">Teléfono</b><br/>
+                                                    787.640.9517</p>
+                                            </address>
+
+                                        </div>
+
+                                    </div>
+
+                                </div>
+                                <div class="col-md-6">
+                                    <label class=" text-shadow">
+                                        <i class="fa fa-info-circle" style="margin-top: 3px"></i> CONDICIONES REFUGIO
+                                    </label>
+
+                                    <div style="margin-left: 10px">
+                                        <label><i class="fa fa-users"></i>&nbsp;Capacidad: 600</label>
+                                    </div>
+                                </div>
+                                <div class="col-md-3">
+                                    <a href="#" class="thumbnail">
+                                        <img src="http://placehold.it/350x250" alt="...">
+                                    </a>
+                                </div>
                             </div>
-
                         </div>
-
-                    </div>
-                    <div class="col-md-6">
-                        <label class=" text-shadow">
-                            <i class="fa fa-info-circle" style="margin-top: 3px"></i> CONDICIONES REFUGIO
-                        </label>
-
-                        <div style="margin-left: 10px">
-                            <label><i class="fa fa-users"></i>&nbsp;Capacidad: 600</label>
-                        </div>
-                    </div>
-                    <div class="col-md-3">
-                        <a href="#" class="thumbnail">
-                            <img src="http://placehold.it/350x250" alt="...">
-                        </a>
                     </div>
                 </div>
             </div>
-        </div>
 
-        <!--<google-map center="center"
-                    zoom="zoom"
-                    style="height: 400px; width: 100%; display: block;">
+        </section>
+        <!-- /.content -->
+    </aside>
+    <!-- /.right-side --
+    </div><!-- ./wrapper -->
 
-        &lt;!&ndash;    <markers>                                           A
-                <marker ng-repeat="marker in markers" coords="marker"></marker>
-            </markers>&ndash;&gt;
-
-        </google-map>-->
-
-
-        <!--<google-map
-                center="centerProperty"
-                zoom="zoomProperty"
-                markers="markersProperty"
-                latitude="clickedLatitudeProperty"
-                longitude="clickedLongitudeProperty"
-                mark-click="true"
-                draggable="true"
-                style="height: 450px; width: 100%">
-        </google-map>-->
-    </div>
+    <!-- add new calendar event modal -->
 </div>
+
+

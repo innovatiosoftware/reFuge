@@ -1,11 +1,11 @@
 'use strict';
 
 angular.module('reFugeApp')
-    .controller('MapViewCtrl', function ($scope, Logger,DataService) {
-        Logger.doLog = true
-        // Enable the new Google Maps visuals until it gets enabled by default.
-        // See http://googlegeodevelopers.blogspot.ca/2013/05/a-fresh-new-look-for-maps-api-for-all.html
+    .controller('MapViewCtrl', function ($scope, Logger) {
+        Logger.doLog = true;
         google.maps.visualRefresh = true;
+        $scope.geocoder = new google.maps.Geocoder()
+        $scope.show = false;
         $scope.map = {
             center: {
                 latitude: 18.2006761,
@@ -16,12 +16,12 @@ angular.module('reFugeApp')
         $scope.markers =
             [
                 {
-                    id:1,
+                    id: 1,
                     latitude: 18.186289,
                     longitude: -65.963859
                 },
                 {
-                    id:2,
+                    id: 2,
                     latitude: 18.120232,
                     longitude: -65.989962
                 }
@@ -46,9 +46,28 @@ angular.module('reFugeApp')
             };
             marker.onClicked = function () {
                 Logger.info("marker have been click");
-                onMarkerClicked(marker);
+                onMarkerClicked(marker, $scope, Logger);
             };
         });
+
+        $scope.geocodeF = function (town) {
+            $scope.geocoder.geocode({ 'address': town + ", PR"}, function (results, status) {
+                if (status == google.maps.GeocoderStatus.OK) {
+
+                    $scope.map = {
+                        center: {
+                            latitude: results[0].geometry.location.k,
+                            longitude: results[0].geometry.location.A
+                        },
+                        zoom: 11
+                    };
+                    $scope.$apply();
+                    Logger.info(JSON.stringify(results[0].geometry.location));
+                } else {
+                    alert('Geocode was not successful for the following reason: ' + status);
+                }
+            });
+        };
 
 
     })
@@ -61,9 +80,10 @@ angular.module('reFugeApp')
             });
     });
 
-var onMarkerClicked = function (marker) {
-    marker.showWindow = true;
-//    $scope.$apply();
-//    $scope.info
-    window.alert("Marker: lat: " + marker.latitude + ", lon: " + marker.longitude + " clicked!!")
+var onMarkerClicked = function (marker, $scope, Logger) {
+    $scope.show = true;
+    $scope.$apply();
 };
+
+
+

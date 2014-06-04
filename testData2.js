@@ -27,7 +27,7 @@
         "LONGITUDE": -65.963859,
         "CONDICION": "",
         "COMMENT_RAW": "OK",
-        "COMMENT_PARSE": "15",
+        "COMMENT_PARSE": [{type:"COmment",id:"1",cat:"ALERT"},{type:"COmment",id:"1",cat:"ALERT"},],
         "MUNICIPIO": "San Lorenzo",
         "CAPACIDAD": 100,
         "ADDRESS_1_REF_OLD": "Calle Luis MuÃ±oz Rivera San Lorenzo PR 00754",
