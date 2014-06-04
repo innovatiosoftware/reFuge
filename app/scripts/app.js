@@ -1,13 +1,9 @@
 'use strict';
 
-angular.module('reFugeApp', [])
-  .config(function ($routeProvider) {
-    $routeProvider
-      .when('/', {
-        templateUrl: 'views/main.html',
-        controller: 'MainCtrl'
-      })
-      .otherwise({
-        redirectTo: '/'
-      });
-  });
+angular.module('reFugeApp', ['ngRoute','google-maps'])
+    .config(function ($routeProvider) {
+        $routeProvider
+            .otherwise({
+                redirectTo: '/map'
+            })
+    });

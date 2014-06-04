@@ -1,6 +1,6 @@
 'use strict';
 
-angular.module('reFugeApp',["nsRoute"])
+angular.module('reFugeApp')
   .controller('MainCtrl', function ($scope) {
     $scope.awesomeThings = [
       'HTML5 Boilerplate',
