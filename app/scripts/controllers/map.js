@@ -1,7 +1,7 @@
 'use strict';
 
 angular.module('reFugeApp')
-    .controller('MapViewCtrl', function ($scope, Logger) {
+    .controller('MapViewCtrl', function ($scope, Logger, $http) {
         Logger.doLog = true;
         google.maps.visualRefresh = true;
         $scope.geocoder = new google.maps.Geocoder()
@@ -13,20 +13,46 @@ angular.module('reFugeApp')
             },
             zoom: 10
         };
-        $scope.markers =
-            [
-                {
-                    id: 1,
-                    latitude: 18.186289,
-                    longitude: -65.963859
-                },
-                {
-                    id: 2,
-                    latitude: 18.120232,
-                    longitude: -65.989962
-                }
-            ]
-        ;
+        $scope.current={};
+        $scope.markers = [];
+        $http({method: 'GET', url: 'http://fran.local:8002/getAllRefuges/'})
+            .success(function (data, status, headers, config) {
+                _.each(data, function (d) {
+
+                    var ret = {
+                        latitude: d.LATITUDE,
+                        longitude: d.LONGITUDE,
+                        data: d,
+                        id: d.ID
+                    };
+                    $scope.markers.push(ret);
+
+                });
+                _.each($scope.markers, function (marker) {
+                    Logger.info(JSON.stringify(marker));
+                    marker.closeClick = function () {
+                        marker.showWindow = false;
+                        $scope.$apply();
+                    };
+                    marker.onClicked = function () {
+                        Logger.info("marker have been click");
+                        onMarkerClicked(marker, $scope, Logger);
+                    };
+                });
+            })
+
+            .error(function (data, status, headers, config) {
+
+            });
+
+        $http({method: 'GET', url: 'http://fran.local:8002/getAllMunicipalities/'})
+            .success(function (data, status, headers, config) {
+                $scope.mun = data;
+            })
+            .error(function (data, status, headers, config) {
+            });
+
+
 //make other opacity less when searching a zone
         $scope.marker = {
             options: {
@@ -38,19 +64,8 @@ angular.module('reFugeApp')
         };
 
 
-        _.each($scope.markers, function (marker) {
-            Logger.info(JSON.stringify(marker));
-            marker.closeClick = function () {
-                marker.showWindow = false;
-                $scope.$apply();
-            };
-            marker.onClicked = function () {
-                Logger.info("marker have been click");
-                onMarkerClicked(marker, $scope, Logger);
-            };
-        });
-
         $scope.geocodeF = function (town) {
+            Logger.info("geocode for " + town);
             $scope.geocoder.geocode({ 'address': town + ", PR"}, function (results, status) {
                 if (status == google.maps.GeocoderStatus.OK) {
 
@@ -81,8 +96,11 @@ angular.module('reFugeApp')
     });
 
 var onMarkerClicked = function (marker, $scope, Logger) {
+    if (!$scope.show)
     $scope.show = true;
+    $scope.current = marker.data;
     $scope.$apply();
+
 };
 
 

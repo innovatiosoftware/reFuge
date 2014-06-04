@@ -5,11 +5,11 @@ var events = require('events'),
     cps = require('cps');
 db = require('node-mysql');
 
-var rootLib = '/usr/local/lib/node_modules/npm/node_modules/';
-var express = require(rootLib + 'express')
+//var rootLib = '/usr/local/lib/node_modules/npm/node_modules/';
+var express = require('express')
     , http = require('http')
     , path = require('path')
-    , socketio = require(rootLib + 'socket.io'),
+    , socketio = require('socket.io'),
     config = require('../data.js');
 
 /*Services*/

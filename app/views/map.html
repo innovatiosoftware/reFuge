@@ -6,7 +6,7 @@
             <!-- search form -->
             <form action="#" method="get" class="sidebar-form">
                 <div class="input-group">
-                    <input type="text" name="q" class="form-control" placeholder="Search..."/>
+                    <input type="text"  ng-model="munFilter" name="q" class="form-control" placeholder="Search..."/>
                             <span class="input-group-btn">
                                 <button type='submit' name='seach' id='search-btn' class="btn btn-flat"><i
                                         class="fa fa-search"></i></button>
@@ -15,18 +15,15 @@
             </form>
             <!-- /.search form -->
             <!-- sidebar menu: : style can be found in sidebar.less -->
-            <ul class="sidebar-menu" >
+            <ul class="sidebar-menu" style="overflow:scroll; height:650px;">
                 <li class="treeview active">
                     <a href="#">
                         <i class="fa fa-warning "></i>
                         <span>Refugios</span>
                         <i class="fa fa-angle-left pull-right"></i>
                     </a>
-                    <ul class="treeview-menu" >
-                        <li><a href ng-click='geocodeF("Cayey")'><i class="fa fa-dot-circle-o"></i>Cayey <small class="badge pull-right bg-green">50</small></a></li>
-                        <li><a href ng-click='geocodeF("San Juan")'><i class="fa fa-dot-circle-o"></i>San Juan <small class="badge pull-right bg-green">50</small></a></li>
-                        <li><a href ng-click='geocodeF("Vega Alta")'><i class="fa fa-dot-circle-o"></i> Vega Alta</a></li>
-
+                    <ul class="treeview-menu" ng-repeat="m in mun | filter:munFilter" >
+                        <li><a href ng-click='geocodeF(m.MUNICIPIO)'><i class="fa fa-dot-circle-o"></i>{{m.MUNICIPIO}} <small class="badge pull-right bg-green">{{m.TOTAL}}</small></a></li>
                     </ul>
                 </li>
             </ul>
@@ -58,17 +55,17 @@
                     <div style="background-color: #fff;padding: 5px" class="map-box">
 
                         <google-map center="map.center" zoom="map.zoom" draggable="true">
-                            <markers model="markers" doCluster="true" coords="'self'" icon='"images/target.png"'
+                            <!--<markers model="markers" doCluster="true" coords="'self'" icon='"images/target.png"'
                                      options="marker.options" click="onClicked">
 
-                            </markers>
+                            </markers>-->
                             <markers models="markers" coords="'self'" icon="'icon'" click="'onClicked'"
                                      doCluster="true">
                             </markers>
                         </google-map>
                         <div class="map-quick-info"  ng-show="show">
                             <div class="row">
-                                <div class="col-md-3">
+                                <div class="col-md-5">
                                     <div style="margin-left: 10px">
                                         <!--    <label class=" text-shadow" style="">
                                             <i class="fa fa-info-circle" style="margin-top: 3px"></i>  INFOMACION GENERAL
@@ -76,23 +73,24 @@
                                         <h2 class="" style="margin-left: 15px;margin: 0;padding: 0"><i
                                                 class="fa fa-building-o "
                                                 style="font-size: 22px;position: relative;bottom: 3px"></i>
-                                            Nombre lugar
+                                            {{current.NAME}} <label style="font-size: 14px;color:#000"><i class="fa fa-users"></i>&nbsp;Capacidad:
+                                                <b style="font-size: 16px">{{current.CAPACIDAD}}</b>
+                                            </label>
                                         </h2>
                                         <small style="color: #fff;font-size: 11px;margin-left: 25px;position: relative;top:-5px ">
-                                            Zona AEMEA: 1
+                                            Zona AEMEA: {{current.ZONA_AEMEA}}
                                         </small>
                                         <div style="margin-left: 20px">
 
                                             <address class="pull-left">
                                                 <i class="fa fa-location-arrow pull-left" style="margin-top: 3px;color: #000"></i>
                                                 <b style="color: #000">Dirección</b><br/>
-                                                Address Line 1<br/>
-                                                Address Line 2<br/>
-                                                Municipio,PR.<br/>
+                                                {{current.ADDRESS_2_REF_NEW}}<br/>
+                                                {{current.MUNICIPIO}},PR.<br/>
 
                                                 <p><i class="fa fa-phone pull-left" style="margin-top: 3px;color: #000"></i><b
                                                         style="color: #000">Teléfono</b><br/>
-                                                    787.640.9517</p>
+                                                    (787) {{current.TELEFONO}}</p>
                                             </address>
 
                                         </div>
@@ -100,18 +98,18 @@
                                     </div>
 
                                 </div>
-                                <div class="col-md-6">
+                                <div class="col-md-4">
                                     <label class=" text-shadow">
                                         <i class="fa fa-info-circle" style="margin-top: 3px"></i> CONDICIONES REFUGIO
                                     </label>
 
                                     <div style="margin-left: 10px">
-                                        <label><i class="fa fa-users"></i>&nbsp;Capacidad: 600</label>
+                                        <label><i class="fa fa-users"></i>&nbsp;Capacidad: {{current.CAPACIDAD}}</label>
                                     </div>
                                 </div>
                                 <div class="col-md-3">
                                     <a href="#" class="thumbnail">
-                                        <img src="http://placehold.it/350x250" alt="...">
+                                        <img src="http://lorempixel.com/350/240" alt="...">
                                     </a>
                                 </div>
                             </div>
