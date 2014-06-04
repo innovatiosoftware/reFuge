@@ -5,11 +5,11 @@ var events = require('events'),
     cps = require('cps');
 db = require('node-mysql');
 
-//var rootLib = '/usr/local/lib/node_modules/npm/node_modules/';
-var express = require('express')
+var rootLib = '/usr/local/lib/node_modules/npm/node_modules/';
+var express = require(rootLib + 'express')
     , http = require('http')
     , path = require('path')
-    , socketio = require('socket.io'),
+    , socketio = require(rootLib + 'socket.io'),
     config = require('../data.js');
 
 /*Services*/
@@ -24,12 +24,9 @@ var BaseTable = db.Table;
 var dbConfig = {
     host: 'localhost',
     user: 'root',
-    password: '###',
+    password: 'my2@1*',
     database: 'techsummit'
 };
-
-
-//var cb =
 
 app.configure(function () {
     app.set('port', process.env.PORT || 8002);
@@ -52,10 +49,13 @@ var allowCrossDomain = function (req, res, next) {
     res.header('Access-Control-Allow-Origin', "*");
     res.header('Access-Control-Allow-Methods', 'GET,PUT,POST,DELETE');
     res.header('Access-Control-Allow-Headers', 'Content-Type');
+    next();
 };
 
 app.configure(function () {
     app.use(allowCrossDomain);
+//    app.use(allowCrossDomain);
+//    app.use(express.static(__dirname));
 });
 
 server.listen(app.get('port'), function () {
@@ -118,21 +118,6 @@ app.get('/getAllRefuges/', function (req, response) {
 //    }());
 
     var qry = 'SELECT * FROM REGUFEE';
-    var rawQry = 'SELECT RR.ESCUELA, MA.Name, MA.X, MA.Y ' +
-        'FROM REFUGIOS_RAW RR ' +
-        'LEFT JOIN ' +
-        '(' +
-        'SELECT ' +
-        'SUBSTR(Description FROM 10 FOR 5) AS LICENSE, ' +
-        'X,' +
-        'Y,' +
-        'Name,' +
-        'SUBSTR(Description FROM SUBSTRING_INDEX( Description, \'ADDRESS\', 1 ) FOR 100) AS ADDRESS,' +
-        'POSITION( Description IN \'ADDRESS\' ) AS IDX,' +
-        'LOCATE( Description, \'ADDRESS\' , 1) IDX_2,' +
-        'Description ' +
-        'FROM MAPA_MUNICIPIO' +
-        ') MA ON MA.LICENSE = RR.LICENCIA ';
     var box = new DB(dbConfig);
     box.connect(function (conn, cb) {
 
@@ -142,6 +127,13 @@ app.get('/getAllRefuges/', function (req, response) {
             },
             function (res, cb) {
 //                console.log("DATA =" + res);
+//                var result = [];
+//                for (var idx in res) {
+////                    console.log(res[idx][3]);
+//                    console.log(res[idx]);
+////                    console.log(res[idx][3].toLowerCase());
+////                    console.log(res[idx][4].toLowerCase());
+//                }
 
                 response.set(header).status(200).send(res);
                 cb();
@@ -325,39 +317,8 @@ app.get('/getCommentCategories/', function (req, response) {
     }());
 });
 
-/*fix this*/
 app.get('/getConditionCategories/', function (req, response) {
     var header = {'Access-Control-Allow-Origin': '*'};
-
-//    getAllRefugees(function () {
-//        var handleError = function (e) {
-//            if (e.stack) {
-//                console.log(e.stack);
-//            } else {
-//                console.log(e);
-//            }
-//        };
-//
-//        var start = new Date();
-//        return function (err, res) {
-//            try {
-//                var end = new Date();
-//                console.log('time spent: ', end - start);
-//                if (err) {
-//                    handleError(err);
-//                    console.log("Error Here!!");
-//                } else {
-////                    console.log("data call Res = " + data);
-//                    response.set(header).status(200).send("LLEga...");
-//                }
-//                box.end();
-//            } catch (e) {
-//                handleError(e);
-//                box.end();
-//            }
-//        };
-//    }());
-
     var qry = 'SELECT COMMENT_CATEGORY FROM COMMENT_TOKENIZER GROUP BY COMMENT_CATEGORY ORDER BY COMMENT_CATEGORY';
     var box = new DB(dbConfig);
     box.connect(function (conn, cb) {
@@ -474,8 +435,7 @@ app.get('/getAllMunicipalities/', function (req, response) {
     }());
 });
 
-
-app.get('/getAllRefugesLocal/', function (req, response) {
+app.get('/getRefugeByMunicipality/:municipality', function (req, response) {
     var header = {'Access-Control-Allow-Origin': '*'};
 //    getAllRefugees(function () {
 //        var handleError = function (e) {
@@ -505,11 +465,149 @@ app.get('/getAllRefugesLocal/', function (req, response) {
 //            }
 //        };
 //    }());
-//    console.log(config.refuge);
+    var municipality = req.params.municipality;
+    console.log(municipality);
+    var qry = 'SELECT * FROM REGUFEE WHERE MUNICIPIO = \'' + municipality + '\'';
+    var box = new DB(dbConfig);
+    box.connect(function (conn, cb) {
+
+        cps.seq([
+            function (_, cb) {
+                conn.query(qry, cb)
+            },
+            function (res, cb) {
+//                console.log("DATA =" + res);
+                response.set(header).status(200).send(res);
+                cb();
+            }
+        ], cb);
+    }, function () {
+        var handleError = function (e) {
+            if (e.stack) {
+                console.log(e.stack);
+            } else {
+                console.log(e);
+            }
+        };
+
+        var start = new Date();
+        return function (err, res) {
+            try {
+                var end = new Date();
+                console.log('time spent: ', end - start);
+                if (err) {
+                    handleError(err);
+                } else {
+//                    console.log(res);
+                }
+                box.end();
+            } catch (e) {
+                handleError(e);
+                box.end();
+            }
+        };
+    }());
+});
+
+
+app.get('/getNearbyRefuges/:lat/:lon', function (req, response) {
+    var header = {'Access-Control-Allow-Origin': '*'};
+//    getAllRefugees(function () {
+//        var handleError = function (e) {
+//            if (e.stack) {
+//                console.log(e.stack);
+//            } else {
+//                console.log(e);
+//            }
+//        };
+//
+//        var start = new Date();
+//        return function (err, res) {
+//            try {
+//                var end = new Date();
+//                console.log('time spent: ', end - start);
+//                if (err) {
+//                    handleError(err);
+//                    console.log("Error Here!!");
+//                } else {
+////                    console.log("data call Res = " + data);
+//                    response.set(header).status(200).send("LLEga...");
+//                }
+//                box.end();
+//            } catch (e) {
+//                handleError(e);
+//                box.end();
+//            }
+//        };
+//    }());
+    var lat = req.params.lat;
+    var lon = req.params.lon;
+
+    console.log(lat);
+    console.log(lon);
+
+    var qry = 'SELECT *, SQRT(POW(69.1 * (latitude - ' + lat + '), 2) + POW(69.1 * (' + lon + ' - longitude) * COS(latitude / 57.3), 2)) AS distance ' +
+        'FROM REGUFEE ' +
+        // 'HAVING distance < 3 ' +
+        'ORDER BY distance ';
+    var box = new DB(dbConfig);
+    box.connect(function (conn, cb) {
+
+        cps.seq([
+            function (_, cb) {
+                conn.query(qry, cb)
+            },
+            function (res, cb) {
+//                console.log("DATA =" + res);
+                response.set(header).status(200).send(res);
+                cb();
+            }
+        ], cb);
+    }, function () {
+        var handleError = function (e) {
+            if (e.stack) {
+                console.log(e.stack);
+            } else {
+                console.log(e);
+            }
+        };
+
+        var start = new Date();
+        return function (err, res) {
+            try {
+                var end = new Date();
+                console.log('time spent: ', end - start);
+                if (err) {
+                    handleError(err);
+                } else {
+//                    console.log(res);
+                }
+                box.end();
+            } catch (e) {
+                handleError(e);
+                box.end();
+            }
+        };
+    }());
+});
+
+
+/*LOCAL SERVICES*/
+app.get('/getAllRefugesLocal/', function (req, response) {
+    var header = {'Access-Control-Allow-Origin': '*'};
     response.set(header).status(200).send(refuge);
 
 });
+app.get('/getAllMunicipalitiesLocal/', function (req, response) {
+    var header = {'Access-Control-Allow-Origin': '*'};
+    response.set(header).status(200).send(allMunicipalities);
 
+});
+app.get('/getConditionCategories/', function (req, response) {
+    var header = {'Access-Control-Allow-Origin': '*'};
+    response.set(header).status(200).send(allConditionCategories);
+
+});
 
 var refuge = [
     {
@@ -7176,10 +7274,9 @@ var refuge = [
         "TELEFONO": "823-5184",
         "CONDITION_CATEGORY": "Funcional"
     }
-]
-
-
-
+];
+var allMunicipalities = [];
+var allConditionCategories = [];
 
 
 
