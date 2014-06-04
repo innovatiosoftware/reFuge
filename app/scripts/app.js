@@ -1,6 +1,6 @@
 'use strict';
 
-angular.module('reFugeApp', ['ngRoute','google-maps'])
+angular.module('reFugeApp', ['ngRoute','google-maps','ngResource'])
     .config(function ($routeProvider) {
         $routeProvider
             .otherwise({

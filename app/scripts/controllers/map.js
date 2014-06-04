@@ -1,7 +1,7 @@
 'use strict';
 
 angular.module('reFugeApp')
-    .controller('MapViewCtrl', function ($scope, Logger) {
+    .controller('MapViewCtrl', function ($scope, Logger,DataService) {
         Logger.doLog = true
         // Enable the new Google Maps visuals until it gets enabled by default.
         // See http://googlegeodevelopers.blogspot.ca/2013/05/a-fresh-new-look-for-maps-api-for-all.html
@@ -16,10 +16,12 @@ angular.module('reFugeApp')
         $scope.markers =
             [
                 {
+                    id:1,
                     latitude: 18.186289,
                     longitude: -65.963859
                 },
                 {
+                    id:2,
                     latitude: 18.120232,
                     longitude: -65.989962
                 }
@@ -37,14 +39,14 @@ angular.module('reFugeApp')
 
 
         _.each($scope.markers, function (marker) {
-            Logger.info("dd");
+            Logger.info(JSON.stringify(marker));
             marker.closeClick = function () {
                 marker.showWindow = false;
                 $scope.$apply();
             };
             marker.onClicked = function () {
-                Logger.info("dd2");
-//                onMarkerClicked(marker);
+                Logger.info("marker have been click");
+                onMarkerClicked(marker);
             };
         });
 
@@ -60,7 +62,8 @@ angular.module('reFugeApp')
     });
 
 var onMarkerClicked = function (marker) {
-//    marker.showWindow = true;
+    marker.showWindow = true;
 //    $scope.$apply();
+//    $scope.info
     window.alert("Marker: lat: " + marker.latitude + ", lon: " + marker.longitude + " clicked!!")
 };

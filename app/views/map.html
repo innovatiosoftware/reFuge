@@ -4,33 +4,56 @@
         <div style="background-color: #fff;padding: 5px" class="map-box">
 
             <google-map center="map.center" zoom="map.zoom" draggable="true">
-                <!--<markers model="markers" doCluster="true" coords="'self'" icon='"images/target.png"' options="marker.options" click="'onClicked'">
+                <markers model="markers" doCluster="true" coords="'self'" icon='"images/target.png"'
+                         options="marker.options" click="onClicked">
 
-                </markers>-->
-                <marker ng-repeat="m in markers" coords="m" icon='"images/sofa.png"' options="marker.options"
-                        click="'onClicked'">
-
-                </marker>
+                </markers>
+                <markers models="markers" coords="'self'" icon="'icon'" click="'onClicked'"
+                         doCluster="true">
+                </markers>
             </google-map>
-            <div class="map-quick-info">
+            <div class="map-quick-info" >
                 <div class="row">
                     <div class="col-md-3">
-                        <h2><i class="fa fa-building-o" style="font-size: 22px;position: relative;bottom: 3px"></i>
-                            Nombre lugar</h2>
-
                         <div style="margin-left: 10px">
-                            <i class="fa fa-location-arrow pull-left" style="margin-top: 3px" ></i>
-                            <address class="pull-left">
+                            <!--    <label class=" text-shadow" style="">
+                                <i class="fa fa-info-circle" style="margin-top: 3px"></i>  INFOMACION GENERAL
+                            </label>-->
+                            <h2 class="" style="margin-left: 15px;margin: 0;padding: 0"><i
+                                    class="fa fa-building-o "
+                                    style="font-size: 22px;position: relative;bottom: 3px"></i>
+                                Nombre lugar
+                            </h2>
+                            <small style="color: #fff;font-size: 11px;margin-left: 25px;position: relative;top:-5px ">
+                                Zona AEMEA: 1
+                            </small>
+                            <div style="margin-left: 20px">
+
+                                <address class="pull-left">
+                                    <i class="fa fa-location-arrow pull-left" style="margin-top: 3px;color: #000"></i>
+                                    <b style="color: #000">Dirección</b><br/>
                                     Address Line 1<br/>
                                     Address Line 2<br/>
-                                    Municipio,PR.
-                            </address>
+                                    Municipio,PR.<br/>
+
+                                    <p><i class="fa fa-phone pull-left" style="margin-top: 3px;color: #000"></i><b
+                                            style="color: #000">Teléfono</b><br/>
+                                        787.640.9517</p>
+                                </address>
+
+                            </div>
+
                         </div>
+
                     </div>
                     <div class="col-md-6">
-                        <label class="vertical-text">
-                                        CONDICIONES <br/>DEL<br/> REFUGIO
+                        <label class=" text-shadow">
+                            <i class="fa fa-info-circle" style="margin-top: 3px"></i> CONDICIONES REFUGIO
                         </label>
+
+                        <div style="margin-left: 10px">
+                            <label><i class="fa fa-users"></i>&nbsp;Capacidad: 600</label>
+                        </div>
                     </div>
                     <div class="col-md-3">
                         <a href="#" class="thumbnail">
