@@ -1,7 +1,10 @@
+
 {
-  "name": "refuge",
-  "version": "0.0.0",
-  "dependencies": {},
+  "name": "reFuge",
+  "version": "0.0.1",
+  "dependencies": {
+      "express": "3.x"
+  },
   "devDependencies": {
     "grunt": "~0.4.1",
     "grunt-contrib-copy": "~0.4.1",
