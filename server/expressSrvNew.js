@@ -25,7 +25,7 @@ app.get('/doTest/:id', function (req, res) {
 app.get('/getAllRefuges/', function (req, response) {
     var header = {'Access-Control-Allow-Origin': '*'};
 
-    var qry = 'SELECT * FROM REGUFEE';
+    var qry = 'SELECT * FROM REGUFEE WHERE LATITUDE IS NOT NULL AND LONGITUDE IS NOT NULL';
     var box = new DB(dbConfig);
     box.connect(function (conn, cb) {
 
