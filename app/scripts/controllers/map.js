@@ -1,7 +1,7 @@
 'use strict';
 
 angular.module('reFugeApp')
-    .controller('MapViewCtrl', function ($scope, Logger, $http) {
+    .controller('MapViewCtrl', function ($scope, Logger, $http,DataService) {
         Logger.doLog = true;
         google.maps.visualRefresh = true;
         $scope.geocoder = new google.maps.Geocoder()
@@ -15,7 +15,7 @@ angular.module('reFugeApp')
         };
         $scope.current={};
         $scope.markers = [];
-        $http({method: 'GET', url: 'http://fran.local:8002/getAllRefuges/'})
+        $http({method: 'GET', url: 'http://localhost:8002/getAllRefuges/'})
             .success(function (data, status, headers, config) {
                 _.each(data, function (d) {
 
@@ -45,7 +45,7 @@ angular.module('reFugeApp')
 
             });
 
-        $http({method: 'GET', url: 'http://fran.local:8002/getAllMunicipalities/'})
+        $http({method: 'GET', url: 'http://localhost:8002/getAllMunicipalities/'})
             .success(function (data, status, headers, config) {
                 $scope.mun = data;
             })

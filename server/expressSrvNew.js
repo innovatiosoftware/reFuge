@@ -1,16 +1,30 @@
 var express = require('express');
 var app = express();
 var path = require('path');
+var events = require('events'),
+    cps = require('cps');
+db = require('node-mysql');
 
 app.use(express.static(path.join(__dirname, '/../app')));
-console.log(__dirname);
+
+var DB = db.DB;
+var BaseRow = db.Row;
+var BaseTable = db.Table;
+
+var dbConfig = {
+    host: 'localhost',
+    user: 'root',
+    password: 'admin',
+//    password: 'my2@1*',
+    database: 'techsummit'
+};
 
 
-var server = app.listen(8002, function() {
+var server = app.listen(8002, function () {
     console.log('Listening on port %d', server.address().port);
 });
 
-app.use(function(err, req, res, next){
+app.use(function (err, req, res, next) {
     console.error(err.stack);
     res.send(500, 'Something broke!');
 });
