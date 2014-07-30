@@ -1,5 +1,6 @@
 // Ionic Starter App
-
+var lat = 18.45;
+var long = -66.09;
 // angular.module is a global place for creating, registering and retrieving Angular modules
 // 'starter' is the name of this angular module example (also set in a <body> attribute in index.html)
 // the 2nd parameter is an array of 'requires'
@@ -17,6 +18,30 @@ angular.module('starter', ['ionic', 'starter.controllers', 'starter.services'])
             if (window.StatusBar) {
                 // org.apache.cordova.statusbar required
                 StatusBar.styleDefault();
+            }
+
+            document.addEventListener("deviceready", onDeviceReady, false);
+
+            // device APIs are available
+            //
+            function onDeviceReady() {
+                navigator.geolocation.getCurrentPosition(onSuccess, onError);
+            }
+
+            // onSuccess Geolocation
+            //
+            function onSuccess(position) {
+                alert('Location found: ' + lat + "::" + long + '//' + position.coords.latitude + "::" + position.coords.longitude);
+                if (lat == 0 && long == 0) {
+                    lat = position.coords.latitude;
+                    long = position.coords.longitude;
+                }
+            }
+
+            // onError Callback receives a PositionError object
+            //
+            function onError(error) {
+                console.log(error);
             }
         });
     })
@@ -44,6 +69,24 @@ angular.module('starter', ['ionic', 'starter.controllers', 'starter.services'])
                     'tab-reFuge': {
                         templateUrl: 'templates/tab-reFuge.html',
                         controller: 'reFugeCtrl'
+                    }
+                }
+            })
+            .state('tab.reFuge-detail', {
+                url: '/reFuge/:refugeId',
+                views: {
+                    'tab-reFuge': {
+                        templateUrl: 'templates/reFuge-detail.html',
+                        controller: 'reFugeDetailCtrl'
+                    }
+                }
+            })
+            .state('tab.reFuge-feed', {
+                url: '/reFugeFeed',
+                views: {
+                    'tab-reFuge': {
+                        templateUrl: 'templates/feed-detail.html',
+                        controller: 'reFugeFeeCtrl'
                     }
                 }
             })
